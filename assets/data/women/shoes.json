@@ -1,0 +1,72 @@
+[
+  {
+    "name": "Nike Air Max 270 React",
+    "title": "Modern & Sleek",
+    "category": "women",
+    "imageUrl": "https://images.unsplash.com/photo-1589987601460-34089f7bb22e?auto=format&fit=crop&w=600&q=80",
+    "sizes": [
+      { "size": "36", "isSelected": false },
+      { "size": "37", "isSelected": false },
+      { "size": "38", "isSelected": false }
+    ],
+    "price": "150.00",
+    "description": "Futuristic design with responsive cushioning.",
+    "oldPrice": "165.00"
+  },
+  {
+    "name": "Adidas NMD_R1 Women",
+    "title": "Stylish and Comfortable",
+    "category": "women",
+    "imageUrl": "https://images.unsplash.com/photo-1578575437130-527eed3abb24?auto=format&fit=crop&w=600&q=80",
+    "sizes": [
+      { "size": "36", "isSelected": false },
+      { "size": "37", "isSelected": false },
+      { "size": "38", "isSelected": false }
+    ],
+    "price": "140.00",
+    "description": "Lightweight knit upper with modern look.",
+    "oldPrice": "160.00"
+  },
+  {
+    "name": "New Balance Fresh Foam",
+    "title": "All-Day Walking Shoe",
+    "category": "women",
+    "imageUrl": "https://images.unsplash.com/photo-1600180758268-fd7c3c5f8832?auto=format&fit=crop&w=600&q=80",
+    "sizes": [
+      { "size": "37", "isSelected": false },
+      { "size": "38", "isSelected": false },
+      { "size": "39", "isSelected": false }
+    ],
+    "price": "100.00",
+    "description": "Soft foam midsole ideal for walking or errands.",
+    "oldPrice": "115.00"
+  },
+  {
+    "name": "Reebok Classic Leather",
+    "title": "Throwback Vibe",
+    "category": "women",
+    "imageUrl": "https://images.unsplash.com/photo-1606813903091-4fcddaa0b5d5?auto=format&fit=crop&w=600&q=80",
+    "sizes": [
+      { "size": "36", "isSelected": false },
+      { "size": "37", "isSelected": false },
+      { "size": "38", "isSelected": false }
+    ],
+    "price": "85.00",
+    "description": "Timeless style with a modern twist.",
+    "oldPrice": "95.00"
+  },
+  {
+    "name": "Converse Chuck Taylor All Star",
+    "title": "Iconic Everyday Shoe",
+    "category": "women",
+    "imageUrl": "https://images.unsplash.com/photo-1618354691329-f7c0f51d1a47?auto=format&fit=crop&w=600&q=80",
+    "sizes": [
+      { "size": "36", "isSelected": false },
+      { "size": "37", "isSelected": false },
+      { "size": "38", "isSelected": false }
+    ],
+    "price": "65.00",
+    "description": "Classic canvas and rubber sole combo.",
+    "oldPrice": "75.00"
+  }
+]

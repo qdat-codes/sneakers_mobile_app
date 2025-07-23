@@ -1,0 +1,72 @@
+[
+  {
+    "name": "Nike Air Max Kids",
+    "title": "Sporty & Comfortable",
+    "category": "kids",
+    "imageUrl": "https://images.unsplash.com/photo-1606813902915-5d84d700b269?auto=format&fit=crop&w=600&q=80",
+    "sizes": [
+      { "size": "28", "isSelected": false },
+      { "size": "29", "isSelected": false },
+      { "size": "30", "isSelected": false }
+    ],
+    "price": "59.99",
+    "description": "Lightweight and comfy for active kids who love to run.",
+    "oldPrice": "69.99"
+  },
+  {
+    "name": "Adidas Superstar Junior",
+    "title": "Classic Look for Kids",
+    "category": "kids",
+    "imageUrl": "https://images.unsplash.com/photo-1617127365659-b3e8fd43ba8c?auto=format&fit=crop&w=600&q=80",
+    "sizes": [
+      { "size": "27", "isSelected": false },
+      { "size": "28", "isSelected": false },
+      { "size": "29", "isSelected": false }
+    ],
+    "price": "54.99",
+    "description": "Iconic design with extra padding for comfort.",
+    "oldPrice": "64.99"
+  },
+  {
+    "name": "Puma Runner Kids",
+    "title": "Perfect For Daily Play",
+    "category": "kids",
+    "imageUrl": "https://images.unsplash.com/photo-1596461404969-e6fbf53b0f8f?auto=format&fit=crop&w=600&q=80",
+    "sizes": [
+      { "size": "26", "isSelected": false },
+      { "size": "27", "isSelected": false },
+      { "size": "28", "isSelected": false }
+    ],
+    "price": "42.00",
+    "description": "Great traction and breathable fabric for all-day wear.",
+    "oldPrice": "50.00"
+  },
+  {
+    "name": "New Balance 990v5",
+    "title": "High Performance Shoes",
+    "category": "kids",
+    "imageUrl": "https://images.unsplash.com/photo-1622782269428-2f0aa4004173?auto=format&fit=crop&w=600&q=80",
+    "sizes": [
+      { "size": "30", "isSelected": false },
+      { "size": "31", "isSelected": false },
+      { "size": "32", "isSelected": false }
+    ],
+    "price": "69.00",
+    "description": "Premium cushioning and support for growing feet.",
+    "oldPrice": "79.00"
+  },
+  {
+    "name": "Vans Old Skool Kids",
+    "title": "Trendy Everyday Sneaker",
+    "category": "kids",
+    "imageUrl": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80",
+    "sizes": [
+      { "size": "27", "isSelected": false },
+      { "size": "28", "isSelected": false },
+      { "size": "29", "isSelected": false }
+    ],
+    "price": "48.99",
+    "description": "Stylish design and durable material for school & play.",
+    "oldPrice": "55.00"
+  }
+]
