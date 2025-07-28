@@ -3,7 +3,7 @@
     "name": "Nike Air Max Kids",
     "title": "Sporty & Comfortable",
     "category": "kids",
-    "imageUrl": "https://images.unsplash.com/photo-1606813902915-5d84d700b269?auto=format&fit=crop&w=600&q=80",
+    "imageUrl": "http://placeimg.com/640/480/fashion",
     "sizes": [
       { "size": "28", "isSelected": false },
       { "size": "29", "isSelected": false },

@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 
-import '../shared/appstyle.dart';
+import '../../shared/widgets.dart';
 
-class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
+class CartPage extends StatefulWidget {
+  const CartPage({super.key});
 
   @override
-  State<ProfilePage> createState() => _ProfilePageState();
+  State<CartPage> createState() => _CartPageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class _CartPageState extends State<CartPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
         child: Text(
-          "This is Profile Page",
+          "This is Cart Page",
           style: appstyle(40, Colors.black, FontWeight.bold),
         ),
       ),

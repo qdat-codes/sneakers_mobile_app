@@ -40,11 +40,16 @@ dependencies:
   community_material_icon: ^5.9.55
   provider: ^6.1.5
   cached_network_image: ^3.4.1
+  freezed_annotation: ^2.4.1
+  json_annotation: ^4.8.1
+  font_awesome_flutter: ^10.8.0
+  flutter_staggered_grid_view: ^0.7.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
+  freezed: ^2.4.6
+  json_serializable: ^6.7.1
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
@@ -65,6 +70,9 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
+    - assets/data/json/kid.json
+    - assets/data/json/men.json
+    - assets/data/json/women.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
