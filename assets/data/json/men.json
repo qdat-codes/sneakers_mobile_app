@@ -3,7 +3,7 @@
     "name": "Nike Air Zoom Pegasus 40",
     "title": "Everyday Running Comfort",
     "category": "men",
-    "imageUrl": "https://as2.ftcdn.net/v2/jpg/04/42/54/79/1000_F_442547913_tWYOcGkO06Vbo30KOvrOPte5JqDHVWmR.jpg",
+    "imageUrl": "http://placeimg.com/640/480/fashion",
     "sizes": [
       { "size": "41", "isSelected": false },
       { "size": "42", "isSelected": false },
@@ -17,7 +17,7 @@
     "name": "Adidas Ultraboost 22",
     "title": "Performance and Style",
     "category": "men",
-    "imageUrl": "https://images.unsplash.com/photo-1600180758890-6c2b7b7e28c9?auto=format&fit=crop&w=600&q=80",
+    "imageUrl": "http://placeimg.com/640/480/fashion",
     "sizes": [
       { "size": "40", "isSelected": false },
       { "size": "41", "isSelected": false },
@@ -31,7 +31,7 @@
     "name": "Puma RS-X Men",
     "title": "Bold Street Style",
     "category": "men",
-    "imageUrl": "https://images.unsplash.com/photo-1606813902997-46279b7a0415?auto=format&fit=crop&w=600&q=80",
+    "imageUrl": "http://placeimg.com/640/480/fashion",
     "sizes": [
       { "size": "42", "isSelected": false },
       { "size": "43", "isSelected": false },
@@ -45,7 +45,7 @@
     "name": "New Balance 574",
     "title": "Heritage Running",
     "category": "men",
-    "imageUrl": "https://images.unsplash.com/photo-1613929726845-1e6778ef8c4b?auto=format&fit=crop&w=600&q=80",
+    "imageUrl": "http://placeimg.com/640/480/fashion",
     "sizes": [
       { "size": "41", "isSelected": false },
       { "size": "42", "isSelected": false },
@@ -59,7 +59,7 @@
     "name": "Asics Gel-Kayano 29",
     "title": "Stable and Supportive",
     "category": "men",
-    "imageUrl": "https://images.unsplash.com/photo-1606813903084-3e6c346b8c95?auto=format&fit=crop&w=600&q=80",
+    "imageUrl": "http://placeimg.com/640/480/fashion",
     "sizes": [
       { "size": "42", "isSelected": false },
       { "size": "43", "isSelected": false },

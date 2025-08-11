@@ -4,3 +4,7 @@ export 'bottom_nav_bar.dart';
 export 'product_cart.dart';
 export 'new_shoes.dart';
 export 'home_widget.dart';
+export 'lastest_shoes.dart';
+export 'custom_spacer.dart';
+export 'category_btn.dart';
+export 'checkout_btn.dart';

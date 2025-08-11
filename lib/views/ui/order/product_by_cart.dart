@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sneakers_mobile_app/models/product/product_model.dart';
 import 'package:sneakers_mobile_app/services/product_service.dart';
-import 'package:sneakers_mobile_app/views/shared/appstyle.dart';
 
 import '../../shared/widgets.dart';
 
 class ProductByCart extends StatefulWidget {
-  const ProductByCart({super.key});
+  const ProductByCart({super.key, required this.tabIndex});
+
+  final int tabIndex;
 
   @override
   State<ProductByCart> createState() => _ProductByCartState();
@@ -30,12 +30,18 @@ class _ProductByCartState extends State<ProductByCart>
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _menProducts = _productService.fetchMenProducts();
     _womenProducts = _productService.fetchWomenProducts();
     _kidProducts = _productService.fetchKidProducts();
   }
+
+  List<String> brand = [
+    "assets/images/adidas.png",
+    "assets/images/gucci.png",
+    "assets/images/jordan.png",
+    "assets/images/nike.png",
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +52,7 @@ class _ProductByCartState extends State<ProductByCart>
           children: [
             Container(
               padding: EdgeInsets.fromLTRB(16.w, 45.w, 0, 0),
-              height: MediaQuery.of(context).size.height * 0.4.h,
+              height: MediaQuery.of(context).size.height,
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage("assets/images/top_image.jpg"),
@@ -69,7 +75,7 @@ class _ProductByCartState extends State<ProductByCart>
                         ),
                         GestureDetector(
                           onTap: () {
-                            Navigator.pop(context);
+                            filterProducts();
                           },
                           child: const Icon(
                             FontAwesomeIcons.sliders,
@@ -101,49 +107,198 @@ class _ProductByCartState extends State<ProductByCart>
             Padding(
               padding: EdgeInsetsGeometry.only(
                 top: MediaQuery.of(context).size.height * 0.2.h,
-                left: 16.w,
-                right: 12.w,
               ),
-              child: TabBarView(
-                controller: _tabController,
-                children: [
-                  FutureBuilder<List<ProductModel>>(
-                    future: _menProducts,
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Center(child: CircularProgressIndicator());
-                      } else if (snapshot.hasError) {
-                        return Center(child: Text("Error ${snapshot.error}"));
-                      } else {
-                        if (snapshot.data!.isEmpty) {
-                          return Center(child: Text("No products avalable"));
-                        }
-                        final products = snapshot.data!;
-                        return MasonryGridView.count(
-                          crossAxisCount: 2, // 2 item mỗi hàng
-                          mainAxisSpacing: 8,
-                          crossAxisSpacing: 8,
-                          itemCount: products.length,
-                          itemBuilder: (context, index) {
-                            final product = products[index];
-                            return ProductCart(
-                              name: product.name,
-                              category: product.category,
-                              id: product.id,
-                              price: product.price,
-                              image: product.imageUrl,
-                            );
-                          },
-                        );
-                      }
-                    },
-                  ),
-                ],
+              child: ClipRRect(
+                borderRadius: BorderRadius.all(Radius.circular(16.r)),
+                child: TabBarView(
+                  controller: _tabController,
+                  children: [
+                    ProductLastest(products: _menProducts),
+                    ProductLastest(products: _womenProducts),
+                    ProductLastest(products: _kidProducts),
+                  ],
+                ),
               ),
             ),
           ],
         ),
       ),
+    );
+  }
+
+  Future<dynamic> filterProducts() {
+    double _value = 100;
+
+    return showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      barrierColor: Colors.white54,
+      builder:
+          (context) => Container(
+            height: MediaQuery.of(context).size.height * 0.80.h,
+            width: MediaQuery.of(context).size.width.w,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(25.r),
+                topRight: Radius.circular(25.r),
+              ),
+            ),
+            child: Column(
+              children: [
+                SizedBox(height: 10.h),
+                Container(
+                  height: 5.h,
+                  width: 40.w,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(10.r)),
+                    color: Colors.black,
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.7.h,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const CustomerSpacer(),
+                      Center(
+                        child: Text(
+                          "Filter",
+                          style: appstyle(40, Colors.black, FontWeight.bold),
+                        ),
+                      ),
+                      const CustomerSpacer(),
+                      Padding(
+                        padding: EdgeInsetsGeometry.only(left: 15.w),
+                        child: Text(
+                          "Gender: ",
+                          style: appstyle(20, Colors.black, FontWeight.w600),
+                        ),
+                      ),
+                      SizedBox(height: 10.h),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: CategoryBtn(
+                              label: "Men",
+                              btnColor: Colors.black,
+                              onPress: () {},
+                            ),
+                          ),
+                          Expanded(
+                            child: CategoryBtn(
+                              label: "Women",
+                              btnColor: Colors.black,
+                              onPress: () {},
+                            ),
+                          ),
+                          Expanded(
+                            child: CategoryBtn(
+                              label: "Kids",
+                              btnColor: Colors.black,
+                              onPress: () {},
+                            ),
+                          ),
+                        ],
+                      ),
+                      CustomerSpacer(),
+                      Padding(
+                        padding: EdgeInsetsGeometry.only(left: 15.w),
+                        child: Text(
+                          "Category: ",
+                          style: appstyle(20, Colors.black, FontWeight.w600),
+                        ),
+                      ),
+                      SizedBox(height: 10.h),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: CategoryBtn(
+                              label: "Shoes",
+                              btnColor: Colors.black,
+                              onPress: () {},
+                            ),
+                          ),
+                          Expanded(
+                            child: CategoryBtn(
+                              label: "Apparrels",
+                              btnColor: Colors.black,
+                              onPress: () {},
+                            ),
+                          ),
+                          Expanded(
+                            child: CategoryBtn(
+                              label: "Accessori",
+                              btnColor: Colors.black,
+                              onPress: () {},
+                            ),
+                          ),
+                        ],
+                      ),
+                      CustomerSpacer(),
+                      Padding(
+                        padding: EdgeInsetsGeometry.only(left: 15.w),
+                        child: Text(
+                          "Price: ",
+                          style: appstyle(20, Colors.black, FontWeight.w600),
+                        ),
+                      ),
+                      SizedBox(height: 10.h),
+                      Slider(
+                        value: _value,
+                        activeColor: Colors.black,
+                        inactiveColor: Colors.grey,
+                        thumbColor: Colors.black,
+                        max: 500,
+                        divisions: 50,
+                        label: _value.toString(),
+                        secondaryTrackValue: 200,
+                        onChanged: (double value) {},
+                      ),
+                      Padding(
+                        padding: EdgeInsetsGeometry.only(left: 15.w),
+                        child: Text(
+                          "Brand: ",
+                          style: appstyle(20, Colors.black, FontWeight.w600),
+                        ),
+                      ),
+                      SizedBox(height: 10.h),
+                      Expanded(
+                        child: Container(
+                          padding: EdgeInsets.all(8.w),
+                          height: 80.h,
+                          child: ListView.builder(
+                            itemCount: brand.length,
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: EdgeInsets.all(8.w),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey.shade200,
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(12.r),
+                                    ),
+                                  ),
+                                  child: Image.asset(
+                                    brand[index],
+                                    height: 60.h,
+                                    width: 80.w,
+                                    fit: BoxFit.fill,
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
     );
   }
 }

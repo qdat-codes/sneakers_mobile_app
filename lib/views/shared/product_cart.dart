@@ -3,14 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sneakers_mobile_app/views/shared/appstyle.dart';
 
-class ProductCart extends StatefulWidget {
-  const ProductCart({
+class ProductCard extends StatefulWidget {
+  const ProductCard({
     super.key,
     required this.name,
     required this.category,
     required this.id,
     required this.price,
     required this.image,
+    required this.isColor,
   });
 
   final String name;
@@ -18,12 +19,13 @@ class ProductCart extends StatefulWidget {
   final String id;
   final String price;
   final String image;
+  final bool isColor;
 
   @override
-  State<ProductCart> createState() => _ProductCartState();
+  State<ProductCard> createState() => _ProductCartState();
 }
 
-class _ProductCartState extends State<ProductCart> {
+class _ProductCartState extends State<ProductCard> {
   @override
   Widget build(BuildContext context) {
     bool selected = true;
@@ -103,25 +105,27 @@ class _ProductCartState extends State<ProductCart> {
                       ' \$${widget.price}',
                       style: appstyle(30, Colors.black, FontWeight.w600),
                     ),
-                    Row(
-                      children: [
-                        Text(
-                          "Colors",
-                          style: appstyle(18, Colors.grey, FontWeight.w500),
-                        ),
-                        SizedBox(width: 5.w),
-                        SizedBox(
-                          width: 30.w,
-                          child: ChoiceChip(
-                            label: Text(""),
-                            selected: selected,
-                            visualDensity: VisualDensity.compact,
-                            selectedColor: Colors.black,
-                            shape: const StadiumBorder(),
-                          ),
-                        ),
-                      ],
-                    ),
+                    widget.isColor
+                        ? Row(
+                          children: [
+                            Text(
+                              "Colors",
+                              style: appstyle(18, Colors.grey, FontWeight.w500),
+                            ),
+                            SizedBox(width: 5.w),
+                            SizedBox(
+                              width: 30.w,
+                              child: ChoiceChip(
+                                label: Text(""),
+                                selected: selected,
+                                visualDensity: VisualDensity.compact,
+                                selectedColor: Colors.black,
+                                shape: const StadiumBorder(),
+                              ),
+                            ),
+                          ],
+                        )
+                        : const SizedBox.shrink(),
                   ],
                 ),
               ),

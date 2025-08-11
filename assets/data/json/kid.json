@@ -3,7 +3,7 @@
     "name": "Nike Air Max Kids",
     "title": "Sporty & Comfortable",
     "category": "kids",
-    "imageUrl": "http://placeimg.com/640/480/fashion",
+    "imageUrl": "https://as2.ftcdn.net/v2/jpg/04/42/54/79/1000_F_442547913_tWYOcGkO06Vbo30KOvrOPte5JqDHVWmR.jpg",
     "sizes": [
       { "size": "28", "isSelected": false },
       { "size": "29", "isSelected": false },
@@ -17,7 +17,7 @@
     "name": "Adidas Superstar Junior",
     "title": "Classic Look for Kids",
     "category": "kids",
-    "imageUrl": "https://images.unsplash.com/photo-1617127365659-b3e8fd43ba8c?auto=format&fit=crop&w=600&q=80",
+    "imageUrl": "http://placeimg.com/640/480/fashion",
     "sizes": [
       { "size": "27", "isSelected": false },
       { "size": "28", "isSelected": false },
@@ -31,7 +31,7 @@
     "name": "Puma Runner Kids",
     "title": "Perfect For Daily Play",
     "category": "kids",
-    "imageUrl": "https://images.unsplash.com/photo-1596461404969-e6fbf53b0f8f?auto=format&fit=crop&w=600&q=80",
+    "imageUrl": "http://placeimg.com/640/480/fashion",
     "sizes": [
       { "size": "26", "isSelected": false },
       { "size": "27", "isSelected": false },
@@ -45,7 +45,7 @@
     "name": "New Balance 990v5",
     "title": "High Performance Shoes",
     "category": "kids",
-    "imageUrl": "https://images.unsplash.com/photo-1622782269428-2f0aa4004173?auto=format&fit=crop&w=600&q=80",
+    "imageUrl": "http://placeimg.com/640/480/fashion",
     "sizes": [
       { "size": "30", "isSelected": false },
       { "size": "31", "isSelected": false },
@@ -59,7 +59,7 @@
     "name": "Vans Old Skool Kids",
     "title": "Trendy Everyday Sneaker",
     "category": "kids",
-    "imageUrl": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80",
+    "imageUrl": "http://placeimg.com/640/480/fashion",
     "sizes": [
       { "size": "27", "isSelected": false },
       { "size": "28", "isSelected": false },

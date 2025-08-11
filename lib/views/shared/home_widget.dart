@@ -1,18 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
+import 'package:sneakers_mobile_app/controllers/product_provider.dart';
 import 'package:sneakers_mobile_app/models/product/product_model.dart';
 import 'package:sneakers_mobile_app/views/shared/appstyle.dart';
 import 'package:sneakers_mobile_app/views/shared/new_shoes.dart';
 import 'package:sneakers_mobile_app/views/shared/product_cart.dart';
+import 'package:sneakers_mobile_app/views/ui/product/product_page.dart';
+import 'package:sneakers_mobile_app/views/ui/widgets.dart';
 
 class HomeWidget extends StatelessWidget {
-  const HomeWidget({super.key, required Future<List<ProductModel>> products})
-    : _products = products;
+  const HomeWidget({
+    super.key,
+    required Future<List<ProductModel>> products,
+    required this.tabIndex,
+  }) : _products = products;
 
   final Future<List<ProductModel>> _products;
-
+  final int tabIndex;
   @override
   Widget build(BuildContext context) {
+    var productNotifier = Provider.of<ProductNotifier>(context);
+
     return Column(
       children: [
         SizedBox(
@@ -34,12 +43,28 @@ class HomeWidget extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
                     final product = products[index];
-                    return ProductCart(
-                      name: product.name,
-                      category: product.category,
-                      id: product.id,
-                      price: product.price,
-                      image: product.imageUrl,
+                    return GestureDetector(
+                      onTap: () {
+                        productNotifier.shoeSizes = product.sizes;
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder:
+                                (context) => ProductPage(
+                                  id: product.id,
+                                  category: product.category,
+                                ),
+                          ),
+                        );
+                      },
+                      child: ProductCard(
+                        name: product.name,
+                        category: product.category,
+                        id: product.id,
+                        price: product.price,
+                        image: product.imageUrl,
+                        isColor: true,
+                      ),
                     );
                   },
                 );
@@ -58,14 +83,29 @@ class HomeWidget extends StatelessWidget {
                     "Lastest Shoes",
                     style: appstyle(24, Colors.black, FontWeight.bold),
                   ),
-                  Row(
-                    children: [
-                      Text(
-                        "Show All",
-                        style: appstyle(22, Colors.black, FontWeight.w500),
-                      ),
-                      Icon(Icons.arrow_right, color: Colors.black, size: 28.sp),
-                    ],
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder:
+                              (context) => ProductByCart(tabIndex: tabIndex),
+                        ),
+                      );
+                    },
+                    child: Row(
+                      children: [
+                        Text(
+                          "Show All",
+                          style: appstyle(22, Colors.black, FontWeight.w500),
+                        ),
+                        Icon(
+                          Icons.arrow_right,
+                          color: Colors.black,
+                          size: 28.sp,
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),

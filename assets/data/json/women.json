@@ -3,7 +3,7 @@
     "name": "Nike Air Max 270 React",
     "title": "Modern & Sleek",
     "category": "women",
-    "imageUrl": "https://images.unsplash.com/photo-1589987601460-34089f7bb22e?auto=format&fit=crop&w=600&q=80",
+    "imageUrl": "http://placeimg.com/640/480/fashion",
     "sizes": [
       { "size": "36", "isSelected": false },
       { "size": "37", "isSelected": false },
@@ -17,7 +17,7 @@
     "name": "Adidas NMD_R1 Women",
     "title": "Stylish and Comfortable",
     "category": "women",
-    "imageUrl": "https://images.unsplash.com/photo-1578575437130-527eed3abb24?auto=format&fit=crop&w=600&q=80",
+    "imageUrl": "http://placeimg.com/640/480/fashion",
     "sizes": [
       { "size": "36", "isSelected": false },
       { "size": "37", "isSelected": false },
@@ -31,7 +31,7 @@
     "name": "New Balance Fresh Foam",
     "title": "All-Day Walking Shoe",
     "category": "women",
-    "imageUrl": "https://images.unsplash.com/photo-1600180758268-fd7c3c5f8832?auto=format&fit=crop&w=600&q=80",
+    "imageUrl": "http://placeimg.com/640/480/fashion",
     "sizes": [
       { "size": "37", "isSelected": false },
       { "size": "38", "isSelected": false },
@@ -45,7 +45,7 @@
     "name": "Reebok Classic Leather",
     "title": "Throwback Vibe",
     "category": "women",
-    "imageUrl": "https://images.unsplash.com/photo-1606813903091-4fcddaa0b5d5?auto=format&fit=crop&w=600&q=80",
+    "imageUrl": "http://placeimg.com/640/480/fashion",
     "sizes": [
       { "size": "36", "isSelected": false },
       { "size": "37", "isSelected": false },
@@ -59,7 +59,7 @@
     "name": "Converse Chuck Taylor All Star",
     "title": "Iconic Everyday Shoe",
     "category": "women",
-    "imageUrl": "https://images.unsplash.com/photo-1618354691329-f7c0f51d1a47?auto=format&fit=crop&w=600&q=80",
+    "imageUrl": "http://placeimg.com/640/480/fashion",
     "sizes": [
       { "size": "36", "isSelected": false },
       { "size": "37", "isSelected": false },

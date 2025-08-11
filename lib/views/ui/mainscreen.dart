@@ -15,7 +15,6 @@ class _MainScreenState extends State<MainScreen> {
   List<Widget> pageList = const [
     HomePage(),
     SearchPage(),
-    ProductByCart(),
     CartPage(),
     ProfilePage(),
   ];
