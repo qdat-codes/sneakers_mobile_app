@@ -5,7 +5,7 @@ import 'package:sneakers_mobile_app/controllers/product_provider.dart';
 import 'package:sneakers_mobile_app/models/product/product_model.dart';
 import 'package:sneakers_mobile_app/views/shared/appstyle.dart';
 import 'package:sneakers_mobile_app/views/shared/new_shoes.dart';
-import 'package:sneakers_mobile_app/views/shared/product_cart.dart';
+import 'package:sneakers_mobile_app/views/shared/product_card.dart';
 import 'package:sneakers_mobile_app/views/ui/product/product_page.dart';
 import 'package:sneakers_mobile_app/views/ui/widgets.dart';
 
@@ -58,11 +58,11 @@ class HomeWidget extends StatelessWidget {
                         );
                       },
                       child: ProductCard(
+                        id: product.id,
                         name: product.name,
                         category: product.category,
-                        id: product.id,
                         price: product.price,
-                        image: product.imageUrl,
+                        imageUrl: product.imageUrl,
                         isColor: true,
                       ),
                     );

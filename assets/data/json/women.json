@@ -1,5 +1,6 @@
 [
   {
+    "_id": "1",
     "name": "Nike Air Max 270 React",
     "title": "Modern & Sleek",
     "category": "women",
@@ -14,6 +15,7 @@
     "oldPrice": "165.00"
   },
   {
+    "_id": "2",
     "name": "Adidas NMD_R1 Women",
     "title": "Stylish and Comfortable",
     "category": "women",
@@ -28,6 +30,7 @@
     "oldPrice": "160.00"
   },
   {
+    "_id": "3",
     "name": "New Balance Fresh Foam",
     "title": "All-Day Walking Shoe",
     "category": "women",
@@ -42,6 +45,7 @@
     "oldPrice": "115.00"
   },
   {
+    "_id": "4",
     "name": "Reebok Classic Leather",
     "title": "Throwback Vibe",
     "category": "women",
@@ -56,6 +60,7 @@
     "oldPrice": "95.00"
   },
   {
+    "_id": "5",
     "name": "Converse Chuck Taylor All Star",
     "title": "Iconic Everyday Shoe",
     "category": "women",

@@ -40,4 +40,29 @@ class ProductNotifier extends ChangeNotifier {
     _sizes = newSizes;
     notifyListeners();
   }
+
+  void clearAllSizes() {
+    try {
+      _shoeSizes =
+          _shoeSizes.map((sizeOption) {
+            return sizeOption.copyWith(isSelected: false);
+          }).toList();
+    } catch (e) {
+      _shoeSizes = [];
+    }
+    notifyListeners();
+  }
+
+  void clearAllProducts() {
+    try {
+      _sizes.clear();
+      _shoeSizes.clear();
+      _activePage = 0;
+    } catch (e) {
+      _sizes = [];
+      _shoeSizes = [];
+      _activePage = 0;
+    }
+    notifyListeners();
+  }
 }

@@ -1,5 +1,6 @@
 [
   {
+    "_id": "1",
     "name": "Nike Air Max Kids",
     "title": "Sporty & Comfortable",
     "category": "kids",
@@ -14,6 +15,7 @@
     "oldPrice": "69.99"
   },
   {
+    "_id": "2",
     "name": "Adidas Superstar Junior",
     "title": "Classic Look for Kids",
     "category": "kids",
@@ -28,6 +30,7 @@
     "oldPrice": "64.99"
   },
   {
+    "_id": "3",
     "name": "Puma Runner Kids",
     "title": "Perfect For Daily Play",
     "category": "kids",
@@ -42,6 +45,7 @@
     "oldPrice": "50.00"
   },
   {
+    "_id": "4",
     "name": "New Balance 990v5",
     "title": "High Performance Shoes",
     "category": "kids",
@@ -56,6 +60,7 @@
     "oldPrice": "79.00"
   },
   {
+    "_id": "5",
     "name": "Vans Old Skool Kids",
     "title": "Trendy Everyday Sneaker",
     "category": "kids",

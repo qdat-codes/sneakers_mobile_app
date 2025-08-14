@@ -1,13 +1,17 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:provider/provider.dart';
+import 'package:sneakers_mobile_app/config/contants/contants.dart';
 import 'package:sneakers_mobile_app/controllers/product_provider.dart';
 import 'package:sneakers_mobile_app/models/product/product_model.dart';
 import 'package:sneakers_mobile_app/services/product_service.dart';
 import 'package:sneakers_mobile_app/views/shared/widgets.dart';
+
+import '../widgets.dart';
 
 class ProductPage extends StatefulWidget {
   const ProductPage({super.key, required this.id, required this.category});
@@ -39,6 +43,25 @@ class _ProductPageState extends State<ProductPage> {
     await _cartBox.add(newCart);
   }
 
+  final _favBox = Hive.box('fav_box');
+
+  Future<void> _createFav(Map<String, dynamic> addFav) async {
+    await _favBox.add(addFav);
+    getFavorites();
+  }
+
+  getFavorites() {
+    final favData =
+        _favBox.keys.map((key) {
+          final item = _favBox.get(key);
+          return {'key': key, 'id': item['id']};
+        }).toList();
+
+    favor = favData;
+    ids = favor.map((item) => item['id']).toList();
+    setState(() {});
+  }
+
   @override
   void initState() {
     super.initState();
@@ -58,10 +81,10 @@ class _ProductPageState extends State<ProductPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(Icons.error, size: 64, color: Colors.red),
-                  const SizedBox(height: 16),
+                  Icon(Icons.error, size: 64.sp, color: Colors.red),
+                  SizedBox(height: 16.h),
                   Text("Error: ${snapshot.error}"),
-                  const SizedBox(height: 16),
+                  SizedBox(height: 16.h),
                   ElevatedButton(
                     onPressed: () => Navigator.pop(context),
                     child: const Text("Go Back"),
@@ -91,7 +114,7 @@ class _ProductPageState extends State<ProductPage> {
                             GestureDetector(
                               onTap: () {
                                 Navigator.pop(context);
-                                productNotifier.shoeSizes.clear();
+                                // productNotifier.clearAllProducts();
                               },
                               child: const Icon(Icons.close),
                             ),
@@ -146,19 +169,21 @@ class _ProductPageState extends State<ProductPage> {
                                           errorWidget: (context, url, error) {
                                             return Container(
                                               color: Colors.grey.shade300,
-                                              child: const Column(
+                                              child: Column(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,
                                                 children: [
                                                   Icon(
                                                     Icons.image_not_supported,
-                                                    size: 64,
+                                                    size: 64.sp,
                                                     color: Colors.grey,
                                                   ),
                                                   Text(
                                                     "Image not available",
-                                                    style: TextStyle(
-                                                      color: Colors.grey,
+                                                    style: appstyle(
+                                                      16,
+                                                      Colors.grey,
+                                                      FontWeight.w500,
                                                     ),
                                                   ),
                                                 ],
@@ -173,12 +198,38 @@ class _ProductPageState extends State<ProductPage> {
                                             0.1,
                                         right: 20.w,
                                         child: GestureDetector(
-                                          onTap: () {},
-                                          child: Icon(
-                                            Icons.favorite,
-                                            color: Colors.grey,
-                                            size: 28.sp,
-                                          ),
+                                          onTap: () {
+                                            if (ids.contains(product.id)) {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder:
+                                                      (context) =>
+                                                          FavoritePage(),
+                                                ),
+                                              );
+                                            } else {
+                                              _createFav({
+                                                'id': product.id,
+                                                'name': product.name,
+                                                'category': product.category,
+                                                'price': product.price,
+                                                'imageUrl': product.imageUrl[0],
+                                              });
+                                            }
+                                          },
+                                          child:
+                                              ids.contains(product.id)
+                                                  ? const Icon(
+                                                    CommunityMaterialIcons
+                                                        .heart,
+                                                    color: Colors.red,
+                                                  )
+                                                  : const Icon(
+                                                    CommunityMaterialIcons
+                                                        .heart_outline,
+                                                    color: Colors.black,
+                                                  ),
                                         ),
                                       ),
                                       Positioned(
@@ -193,20 +244,15 @@ class _ProductPageState extends State<ProductPage> {
                                               MainAxisAlignment.center,
                                           children: [
                                             ...List<Widget>.generate(
-                                              3,
-                                              (index) => Padding(
-                                                padding: EdgeInsets.symmetric(
-                                                  horizontal: 4.w,
-                                                ),
-                                                child: CircleAvatar(
-                                                  radius: 5.r,
-                                                  backgroundColor:
-                                                      productNotifier
-                                                                  .activePage !=
-                                                              index
-                                                          ? Colors.grey
-                                                          : Colors.black,
-                                                ),
+                                              product.imageUrl.length,
+                                              (index) => CircleAvatar(
+                                                radius: 5.r,
+                                                backgroundColor:
+                                                    productNotifier
+                                                                .activePage !=
+                                                            index
+                                                        ? Colors.grey
+                                                        : Colors.black,
                                               ),
                                             ),
                                           ],
@@ -498,8 +544,8 @@ class _ProductPageState extends State<ProductPage> {
                                                         "price": product.price,
                                                         "quantity": 1,
                                                       });
-                                                      productNotifier.sizes
-                                                          .clear();
+                                                      productNotifier
+                                                          .clearAllSizes();
                                                       Navigator.pop(context);
                                                     },
                                                     label: 'Add to Cart',

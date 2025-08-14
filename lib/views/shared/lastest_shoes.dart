@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:sneakers_mobile_app/models/product/product_model.dart';
-import 'package:sneakers_mobile_app/views/shared/product_cart.dart';
+import 'package:sneakers_mobile_app/views/shared/product_card.dart';
 
 class ProductLastest extends StatelessWidget {
   const ProductLastest({
@@ -35,7 +35,7 @@ class ProductLastest extends StatelessWidget {
                 category: product.category,
                 id: product.id,
                 price: product.price,
-                image: product.imageUrl,
+                imageUrl: product.imageUrl,
                 isColor: false,
               );
             },
