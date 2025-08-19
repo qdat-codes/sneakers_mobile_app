@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:sneakers_mobile_app/models/product/product_model.dart';
+import 'package:sneakers_mobile_app/services/product_service.dart';
 
 class ProductNotifier extends ChangeNotifier {
   int _activePage = 0;
   List<dynamic> _shoeSizes = [];
   List<String> _sizes = [];
+
+  late Future<List<ProductModel>> menProducts;
+  late Future<List<ProductModel>> womenProducts;
+  late Future<List<ProductModel>> kidProducts;
+  late Future<ProductModel> product;
 
   int get activePage => _activePage;
 
@@ -64,5 +71,15 @@ class ProductNotifier extends ChangeNotifier {
       _activePage = 0;
     }
     notifyListeners();
+  }
+
+  void getShoes(String category, String id) {
+    if (category == "men") {
+      product = ProductService().fetchMenProductsById(id);
+    } else if (category == "women") {
+      product = ProductService().fetchWomenProductsById(id);
+    } else {
+      product = ProductService().fetchKidProductsById(id);
+    }
   }
 }

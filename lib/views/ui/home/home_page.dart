@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sneakers_mobile_app/models/product/product_model.dart';
+import 'package:provider/provider.dart';
+import 'package:sneakers_mobile_app/config/components/reusable_text.dart';
+import 'package:sneakers_mobile_app/controllers/product_provider.dart';
 import 'package:sneakers_mobile_app/services/product_service.dart';
 import '../../shared/widgets.dart';
 
@@ -19,28 +21,26 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   final ProductService _productService = ProductService();
 
-  late Future<List<ProductModel>> _menProducts;
-  late Future<List<ProductModel>> _womenProducts;
-  late Future<List<ProductModel>> _kidProducts;
-
   @override
   void initState() {
     super.initState();
-
-    _menProducts = _productService.fetchMenProducts();
-    _womenProducts = _productService.fetchWomenProducts();
-    _kidProducts = _productService.fetchKidProducts();
   }
 
   @override
   Widget build(BuildContext context) {
+    var productNotifier = Provider.of<ProductNotifier>(context, listen: false);
+    productNotifier.menProducts = _productService.fetchMenProducts();
+    productNotifier.womenProducts = _productService.fetchWomenProducts();
+    productNotifier.kidProducts = _productService.fetchKidProducts();
+
     return Scaffold(
       body: SizedBox(
-        height: MediaQuery.of(context).size.height.h,
+        height: 812.h,
+        width: 375.w,
         child: Stack(
           children: [
             Container(
-              padding: EdgeInsets.fromLTRB(15.w, 30.w, 0, 0),
+              padding: EdgeInsets.fromLTRB(16.w, 45.h, 0, 0),
               height: MediaQuery.of(context).size.height.h,
               decoration: BoxDecoration(
                 image: DecorationImage(
@@ -54,23 +54,23 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "Athletics Shoes",
+                    ReusableText(
                       style: appstyleWithHt(
                         30,
                         Colors.white,
                         FontWeight.bold,
                         1.5,
                       ),
+                      text: "Athletics Shoes",
                     ),
-                    Text(
-                      "Collection 2025",
+                    ReusableText(
                       style: appstyleWithHt(
                         20,
                         Colors.white,
                         FontWeight.w500,
                         1.2,
                       ),
+                      text: "Collection 2025",
                     ),
                     TabBar(
                       padding: EdgeInsets.zero,
@@ -101,9 +101,18 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 child: TabBarView(
                   controller: _tabController,
                   children: [
-                    HomeWidget(products: _menProducts, tabIndex: 0),
-                    HomeWidget(products: _womenProducts, tabIndex: 1),
-                    HomeWidget(products: _kidProducts, tabIndex: 2),
+                    HomeWidget(
+                      products: productNotifier.menProducts,
+                      tabIndex: 0,
+                    ),
+                    HomeWidget(
+                      products: productNotifier.womenProducts,
+                      tabIndex: 1,
+                    ),
+                    HomeWidget(
+                      products: productNotifier.kidProducts,
+                      tabIndex: 2,
+                    ),
                   ],
                 ),
               ),

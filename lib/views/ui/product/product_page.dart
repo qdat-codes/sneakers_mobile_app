@@ -6,9 +6,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:provider/provider.dart';
 import 'package:sneakers_mobile_app/config/contants/contants.dart';
+import 'package:sneakers_mobile_app/controllers/favorite_provider.dart';
 import 'package:sneakers_mobile_app/controllers/product_provider.dart';
 import 'package:sneakers_mobile_app/models/product/product_model.dart';
-import 'package:sneakers_mobile_app/services/product_service.dart';
 import 'package:sneakers_mobile_app/views/shared/widgets.dart';
 
 import '../widgets.dart';
@@ -27,52 +27,24 @@ class _ProductPageState extends State<ProductPage> {
   final PageController pageController = PageController();
 
   final _cartBox = Hive.box('cart_box');
-  late Future<ProductModel> _product;
-
-  void getShoes() {
-    if (widget.category == "men") {
-      _product = ProductService().fetchMenProductsById(widget.id);
-    } else if (widget.category == "women") {
-      _product = ProductService().fetchWomenProductsById(widget.id);
-    } else {
-      _product = ProductService().fetchKidProductsById(widget.id);
-    }
-  }
 
   Future<void> _createCart(Map<String, dynamic> newCart) async {
     await _cartBox.add(newCart);
   }
 
-  final _favBox = Hive.box('fav_box');
-
-  Future<void> _createFav(Map<String, dynamic> addFav) async {
-    await _favBox.add(addFav);
-    getFavorites();
-  }
-
-  getFavorites() {
-    final favData =
-        _favBox.keys.map((key) {
-          final item = _favBox.get(key);
-          return {'key': key, 'id': item['id']};
-        }).toList();
-
-    favor = favData;
-    ids = favor.map((item) => item['id']).toList();
-    setState(() {});
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    getShoes();
-  }
-
   @override
   Widget build(BuildContext context) {
+    var favoritesNotifier = Provider.of<FavoriteNotifier>(
+      context,
+      listen: true,
+    );
+    favoritesNotifier.getFavorites();
+
+    var productNotifier = Provider.of<ProductNotifier>(context, listen: false);
+    productNotifier.getShoes(widget.category, widget.id);
     return Scaffold(
       body: FutureBuilder<ProductModel>(
-        future: _product,
+        future: productNotifier.product,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
@@ -197,39 +169,52 @@ class _ProductPageState extends State<ProductPage> {
                                             MediaQuery.of(context).size.height *
                                             0.1,
                                         right: 20.w,
-                                        child: GestureDetector(
-                                          onTap: () {
-                                            if (ids.contains(product.id)) {
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder:
-                                                      (context) =>
-                                                          FavoritePage(),
-                                                ),
-                                              );
-                                            } else {
-                                              _createFav({
-                                                'id': product.id,
-                                                'name': product.name,
-                                                'category': product.category,
-                                                'price': product.price,
-                                                'imageUrl': product.imageUrl[0],
-                                              });
-                                            }
+                                        child: Consumer<FavoriteNotifier>(
+                                          builder: (
+                                            context,
+                                            favoriteNotifier,
+                                            child,
+                                          ) {
+                                            return GestureDetector(
+                                              onTap: () {
+                                                if (ids.contains(widget.id)) {
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder:
+                                                          (context) =>
+                                                              const FavoritePage(),
+                                                    ),
+                                                  );
+                                                } else {
+                                                  favoritesNotifier.createFav({
+                                                    'id': product.id,
+                                                    'name': product.name,
+                                                    'category':
+                                                        product.category,
+                                                    'price': product.price,
+                                                    'imageUrl':
+                                                        product.imageUrl[0],
+                                                  });
+                                                }
+                                                setState(() {});
+                                              },
+                                              child:
+                                                  favoriteNotifier.ids.contains(
+                                                        product.id,
+                                                      )
+                                                      ? const Icon(
+                                                        CommunityMaterialIcons
+                                                            .heart,
+                                                        color: Colors.red,
+                                                      )
+                                                      : const Icon(
+                                                        CommunityMaterialIcons
+                                                            .heart_outline,
+                                                        color: Colors.black,
+                                                      ),
+                                            );
                                           },
-                                          child:
-                                              ids.contains(product.id)
-                                                  ? const Icon(
-                                                    CommunityMaterialIcons
-                                                        .heart,
-                                                    color: Colors.red,
-                                                  )
-                                                  : const Icon(
-                                                    CommunityMaterialIcons
-                                                        .heart_outline,
-                                                    color: Colors.black,
-                                                  ),
                                         ),
                                       ),
                                       Positioned(
@@ -327,18 +312,16 @@ class _ProductPageState extends State<ProductPage> {
                                                   ),
                                                   SizedBox(height: 20.h),
                                                   Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
                                                     children: [
                                                       Text(
                                                         "\$${product.price}",
                                                         style: appstyle(
-                                                          26,
+                                                          30,
                                                           Colors.black,
                                                           FontWeight.w600,
                                                         ),
                                                       ),
+                                                      SizedBox(width: 20.w),
                                                       Row(
                                                         children: [
                                                           Text(

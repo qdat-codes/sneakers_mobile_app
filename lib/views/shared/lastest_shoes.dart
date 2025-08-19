@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:sneakers_mobile_app/models/product/product_model.dart';
 import 'package:sneakers_mobile_app/views/shared/product_card.dart';
+import 'package:sneakers_mobile_app/views/shared/stagger_tile.dart';
+import 'package:sneakers_mobile_app/views/ui/product/product_page.dart';
+import 'package:staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class ProductLastest extends StatelessWidget {
   const ProductLastest({
@@ -25,20 +29,39 @@ class ProductLastest extends StatelessWidget {
             return Center(child: Text("No products avalable"));
           }
           final products = snapshot.data!;
-          return MasonryGridView.count(
+          return StaggeredGridView.countBuilder(
             crossAxisCount: 2, // 2 item mỗi hàng
+            mainAxisSpacing: 16.h,
             itemCount: products.length,
+            scrollDirection: Axis.vertical,
             itemBuilder: (context, index) {
               final product = products[index];
-              return ProductCard(
-                name: product.name,
-                category: product.category,
-                id: product.id,
-                price: product.price,
-                imageUrl: product.imageUrl,
-                isColor: false,
+              return GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return ProductPage(
+                          id: product.id,
+                          category: product.category,
+                        );
+                      },
+                    ),
+                  );
+                },
+                child: StaggerTile(
+                  name: product.name,
+                  price: product.price,
+                  imageUrl: product.imageUrl[0],
+                ),
               );
             },
+            staggeredTileBuilder:
+                (index) => StaggeredTile.extent(
+                  (index % 2 == 0) ? 1 : 1,
+                  (index % 4 == 1 || index % 4 == 3) ? 285.h : 252.h,
+                ),
           );
         }
       },

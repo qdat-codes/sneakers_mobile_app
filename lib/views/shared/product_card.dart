@@ -1,11 +1,11 @@
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hive_flutter/adapters.dart';
+import 'package:provider/provider.dart';
+import 'package:sneakers_mobile_app/config/components/reusable_text.dart';
+import 'package:sneakers_mobile_app/controllers/favorite_provider.dart';
 import 'package:sneakers_mobile_app/views/shared/appstyle.dart';
 import 'package:sneakers_mobile_app/views/ui/widgets.dart';
-
-import '../../config/contants/contants.dart';
 
 class ProductCard extends StatefulWidget {
   const ProductCard({
@@ -30,35 +30,21 @@ class ProductCard extends StatefulWidget {
 }
 
 class _ProductCartState extends State<ProductCard> {
-  final _favBox = Hive.box('fav_box');
-
-  Future<void> _createFav(Map<String, dynamic> addFav) async {
-    await _favBox.add(addFav);
-    getFavorites();
-  }
-
-  getFavorites() {
-    final favData =
-        _favBox.keys.map((key) {
-          final item = _favBox.get(key);
-          return {'key': key, 'id': item['id']};
-        }).toList();
-
-    favor = favData;
-    ids = favor.map((item) => item['id']).toList();
-    setState(() {});
-  }
-
   @override
   Widget build(BuildContext context) {
+    var favoritesNotifier = Provider.of<FavoriteNotifier>(
+      context,
+      listen: true,
+    );
+    favoritesNotifier.getFavorites();
     bool selected = true;
     return Padding(
       padding: EdgeInsets.fromLTRB(8.w, 0.w, 20.w, 0.w),
       child: ClipRRect(
         borderRadius: BorderRadius.all(Radius.circular(16.r)),
         child: Container(
-          width: MediaQuery.of(context).size.width * 0.55.w,
-          height: MediaQuery.of(context).size.height.h,
+          width: MediaQuery.of(context).size.width * 0.55,
+          height: MediaQuery.of(context).size.height,
           decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
@@ -88,7 +74,7 @@ class _ProductCartState extends State<ProductCard> {
                     top: 10.w,
                     child: GestureDetector(
                       onTap: () async {
-                        if (ids.contains(widget.id)) {
+                        if (favoritesNotifier.ids.contains(widget.id)) {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -96,7 +82,7 @@ class _ProductCartState extends State<ProductCard> {
                             ),
                           );
                         } else {
-                          await _createFav({
+                          await favoritesNotifier.createFav({
                             'id': widget.id,
                             'name': widget.name,
                             'category': widget.category,
@@ -104,9 +90,13 @@ class _ProductCartState extends State<ProductCard> {
                             'imageUrl': widget.imageUrl,
                           });
                         }
+                        setState(() {
+                          selected = !selected;
+                          favoritesNotifier.getFavorites();
+                        });
                       },
                       child:
-                          ids.contains(widget.id)
+                          favoritesNotifier.ids.contains(widget.id)
                               ? const Icon(
                                 CommunityMaterialIcons.heart,
                                 color: Colors.red,
@@ -132,7 +122,10 @@ class _ProductCartState extends State<ProductCard> {
                         FontWeight.bold,
                         1.1,
                       ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                     ),
+                    SizedBox(height: 5.h),
                     Text(
                       widget.category,
                       style: appstyleWithHt(
@@ -146,24 +139,29 @@ class _ProductCartState extends State<ProductCard> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(left: 8.w, right: 8.w),
+                padding: EdgeInsets.only(right: 8.w, top: 5.h, bottom: 5.h),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       ' \$${widget.price}',
-                      style: appstyle(30, Colors.black, FontWeight.w600),
+                      style: appstyle(24, Colors.black, FontWeight.w600),
                     ),
                     widget.isColor
                         ? Row(
                           children: [
-                            Text(
-                              "Colors",
-                              style: appstyle(18, Colors.grey, FontWeight.w500),
+                            ReusableText(
+                              style: appstyle(16, Colors.grey, FontWeight.w500),
+                              text: "Colors",
                             ),
                             SizedBox(width: 5.w),
-                            SizedBox(
-                              width: 30.w,
+                            Container(
+                              width: 20.w,
+                              height: 20.h,
+                              decoration: BoxDecoration(
+                                color: Colors.black,
+                                borderRadius: BorderRadius.circular(50.r),
+                              ),
                               child: ChoiceChip(
                                 label: Text(""),
                                 selected: selected,

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:sneakers_mobile_app/models/product/product_model.dart';
+import 'package:provider/provider.dart';
+import 'package:sneakers_mobile_app/controllers/product_provider.dart';
 import 'package:sneakers_mobile_app/services/product_service.dart';
 
 import '../../shared/widgets.dart';
@@ -22,18 +23,16 @@ class _ProductByCartState extends State<ProductByCart>
     vsync: this,
   );
 
-  final ProductService _productService = ProductService();
-
-  late Future<List<ProductModel>> _menProducts;
-  late Future<List<ProductModel>> _womenProducts;
-  late Future<List<ProductModel>> _kidProducts;
-
   @override
   void initState() {
     super.initState();
-    _menProducts = _productService.fetchMenProducts();
-    _womenProducts = _productService.fetchWomenProducts();
-    _kidProducts = _productService.fetchKidProducts();
+    _tabController.animateTo(widget.tabIndex, curve: Curves.easeIn);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
   }
 
   List<String> brand = [
@@ -45,6 +44,11 @@ class _ProductByCartState extends State<ProductByCart>
 
   @override
   Widget build(BuildContext context) {
+    var productNotifier = Provider.of<ProductNotifier>(context, listen: true);
+    productNotifier.menProducts = ProductService().fetchMenProducts();
+    productNotifier.womenProducts = ProductService().fetchWomenProducts();
+    productNotifier.kidProducts = ProductService().fetchKidProducts();
+
     return Scaffold(
       body: SizedBox(
         height: MediaQuery.of(context).size.height.h,
@@ -113,9 +117,9 @@ class _ProductByCartState extends State<ProductByCart>
                 child: TabBarView(
                   controller: _tabController,
                   children: [
-                    ProductLastest(products: _menProducts),
-                    ProductLastest(products: _womenProducts),
-                    ProductLastest(products: _kidProducts),
+                    ProductLastest(products: productNotifier.menProducts),
+                    ProductLastest(products: productNotifier.womenProducts),
+                    ProductLastest(products: productNotifier.kidProducts),
                   ],
                 ),
               ),
@@ -127,7 +131,7 @@ class _ProductByCartState extends State<ProductByCart>
   }
 
   Future<dynamic> filterProducts() {
-    double _value = 100;
+    double value = 100;
 
     return showModalBottomSheet(
       context: context,
@@ -246,13 +250,13 @@ class _ProductByCartState extends State<ProductByCart>
                       ),
                       SizedBox(height: 10.h),
                       Slider(
-                        value: _value,
+                        value: value,
                         activeColor: Colors.black,
                         inactiveColor: Colors.grey,
                         thumbColor: Colors.black,
                         max: 500,
                         divisions: 50,
-                        label: _value.toString(),
+                        label: value.toString(),
                         secondaryTrackValue: 200,
                         onChanged: (double value) {},
                       ),
